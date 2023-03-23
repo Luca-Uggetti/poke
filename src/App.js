@@ -1,25 +1,104 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import {
+  getPokemonList,
+  getPokemonDescription,
+  getPokemonSpriteUrl,
+} from "../api/utils";
+import {
+  ButtonWrapper,
+  Card,
+  Container,
+  PokeButtons,
+  PokeDescription,
+  PokeImage,
+  PokeName,
+  Select,
+} from "./components/PokemonVIew";
+export default function App() {
+  const [pokemonList, setPokemonList] = useState([]); //lista del mio dropdown
+  const [description, setDescription] = useState(" "); //descrizione
+  const [pokemonName, setPokemonName] = useState([]); // nome del pokemon
+  const [selectedPokemonImage, setSelectedPokemonImage] = useState(); //immagine
+  const [count, setCount] = useState(1);
 
-function App() {
+  useEffect(() => {
+    const fetchPokemonList = async () => {
+      const pName = await getPokemonList();
+      setPokemonList(pName);
+    };
+
+    fetchPokemonList();
+  }, []);
+
+  useEffect(() => {
+    const fetchPokemonImage = async () => {
+      const pokemonImage = await getPokemonSpriteUrl(count);
+      setSelectedPokemonImage(pokemonImage);
+    };
+    fetchPokemonImage();
+  }, [count]);
+
+  useEffect(() => {
+    const fetchPokemonInfo = async () => {
+      const pokemon = await getPokemonDescription(count);
+
+      setPokemonName(pokemon.name);
+      setDescription(
+        pokemon.flavor_text_entries[0].flavor_text.replace(/[\n\f]/g, "")
+      );
+    };
+    fetchPokemonInfo();
+  }, [count]);
+
+  function handleSelectChange(event) {
+    const index = event.target.selectedIndex + 1;
+    setCount(index);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Container>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+        }}
+      >
+        <Select onChange={handleSelectChange}>
+          {pokemonList.map((pokemon, index) => (
+            <option key={index} value={pokemon.name}>
+              {pokemon.name}
+            </option>
+          ))}
+        </Select>
+      </div>
+      <Card>
+        <PokeImage>
+          {selectedPokemonImage && (
+            <img src={selectedPokemonImage} alt="Selected Pokemon" />
+          )}
+        </PokeImage>
+        <PokeName>
+          <h6>{pokemonName}</h6>
+        </PokeName>
+        <PokeDescription>{description && <p>{description}</p>}</PokeDescription>
+      </Card>
+      <ButtonWrapper>
+        <PokeButtons
+          disabled={count === 1}
+          style={{ opacity: count === 1 ? 0.8 : 1 }}
+          onClick={() => setCount(count - 1)}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          Previous
+        </PokeButtons>
+
+        <PokeButtons
+          disable={count === 150}
+          style={{ opacity: count === 150 ? 0.8 : 1 }}
+          onClick={() => setCount(count + 1)}
+        >
+          Next
+        </PokeButtons>
+      </ButtonWrapper>
+    </Container>
   );
 }
-
-export default App;
