@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  getPokemonList,
-  getPokemonDescription,
-  getPokemonSpriteUrl,
-} from "../api/utils";
+
 import {
   ButtonWrapper,
   Card,
@@ -13,7 +9,12 @@ import {
   PokeImage,
   PokeName,
   Select,
-} from "./components/PokemonVIew";
+} from "./PokemonVIew";
+import {
+  getPokemonDescription,
+  getPokemonList,
+  getPokemonSpriteUrl,
+} from "./utils";
 export default function App() {
   const [pokemonList, setPokemonList] = useState([]); //lista del mio dropdown
   const [description, setDescription] = useState(" "); //descrizione

@@ -14,3 +14,10 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+/**
+ * per pushare 
+ * git remote add origin https://github.com/Luca-Uggetti/poke.git
+git branch -M main
+git push -u origin main
+ */
