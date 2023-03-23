@@ -56,7 +56,19 @@ export default function App() {
     setCount(index);
   }
   return (
-    <Container>
+    <div
+      style={{
+        width: "400px",
+        backgroundColor: "#bbe6e4",
+        padding: "10px",
+        font: "Roboto",
+        color: "black opacity(80%)",
+        fontSize: "18px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}
+    >
       <div
         style={{
           display: "flex",
@@ -64,42 +76,111 @@ export default function App() {
           justifyContent: "center",
         }}
       >
-        <Select onChange={handleSelectChange}>
+        <select
+          style={{
+            height: "50px",
+            marginBottom: "10px",
+            fontSize: "18px",
+            width: "394px",
+          }}
+          onChange={handleSelectChange}
+        >
           {pokemonList.map((pokemon, index) => (
             <option key={index} value={pokemon.name}>
               {pokemon.name}
             </option>
           ))}
-        </Select>
+        </select>
       </div>
-      <Card>
-        <PokeImage>
+      <div
+        style={{
+          backgroundColor: "#fff",
+          padding: "40px 10px 60px",
+          textAlign: "center",
+          borderRadius: "10px",
+          width: "380px",
+        }}
+      >
+        <div
+          style={{
+            borderRadius: "50%",
+            border: "1px solid grey",
+            width: "293px",
+            height: "293px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            background: "#c7c5c5",
+            margin: "0 auto 20px auto",
+          }}
+        >
           {selectedPokemonImage && (
             <img src={selectedPokemonImage} alt="Selected Pokemon" />
           )}
-        </PokeImage>
-        <PokeName>
+        </div>
+        <div
+          style={{
+            fontWeight: " 700",
+            fontSize: "40px",
+            marginBottom: "10px",
+          }}
+        >
           <h6>{pokemonName}</h6>
-        </PokeName>
-        <PokeDescription>{description && <p>{description}</p>}</PokeDescription>
-      </Card>
-      <ButtonWrapper>
-        <PokeButtons
+        </div>
+        <p
+          style={{
+            fontWeight: "400",
+            fontSize: "18px",
+          }}
+        >
+          {description && <p>{description}</p>}
+        </p>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <div
           disabled={count === 1}
-          style={{ opacity: count === 1 ? 0.8 : 1 }}
+          style={{
+            opacity: count === 1 ? 0.8 : 1,
+            background: "#7d70ba",
+            borderRadius: "6px",
+            width: "180px",
+            height: "50px",
+            border: "0",
+            fontSize: "18px",
+            color: "white",
+            fontFamily: "Roboto",
+            marginTop: "308px",
+          }}
           onClick={() => setCount(count - 1)}
         >
           Previous
-        </PokeButtons>
+        </div>
 
-        <PokeButtons
+        <div
           disable={count === 150}
-          style={{ opacity: count === 150 ? 0.8 : 1 }}
+          style={{
+            opacity: count === 1 ? 0.8 : 1,
+            background: "#7d70ba",
+            borderRadius: "6px",
+            width: "180px",
+            height: "50px",
+            border: "0",
+            fontSize: "18px",
+            color: "white",
+            fontFamily: "Roboto",
+            marginTop: "308px",
+          }}
           onClick={() => setCount(count + 1)}
         >
           Next
-        </PokeButtons>
-      </ButtonWrapper>
-    </Container>
+        </div>
+      </div>
+    </div>
   );
 }
