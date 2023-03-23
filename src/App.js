@@ -1,15 +1,4 @@
 import { useEffect, useState } from "react";
-
-import {
-  ButtonWrapper,
-  Card,
-  Container,
-  PokeButtons,
-  PokeDescription,
-  PokeImage,
-  PokeName,
-  Select,
-} from "./PokemonVIew";
 import {
   getPokemonDescription,
   getPokemonList,
